@@ -13,7 +13,6 @@ class CategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        //TODO: Is admin
         return true;
     }
 

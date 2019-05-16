@@ -11,15 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-//    return view('welcome');
-});
-
 Auth::routes();
 
 Route::group([
-    'as'     => 'admin.',
-    'prefix' => 'admin'
+    'as'         => 'admin.',
+    'prefix'     => 'admin',
+    'middleware' => ['admin']
 ], function() {
     /** Dashboard */
     Route::get('/', ['as' => 'dashboard', 'uses' => 'Admin\AdminDashboardController@index']);
@@ -47,6 +44,5 @@ Route::group([
     Route::post('cart/remove', ['as' => 'cart.remove', 'uses' => 'Web\ShoppingCartController@removeFromCart']);
     Route::post('cart/update', ['as' => 'cart.update', 'uses' => 'Web\ShoppingCartController@updateCart']);
 });
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
