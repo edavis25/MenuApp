@@ -22,6 +22,7 @@ class AddonGroup extends Model
         return $this->hasMany(Addon::class);
     }
 
+    // TODO: Is used?
     public function getInputName()
     {
         return strtolower('addongroup_' . str_replace(' ', '_', $this->name));

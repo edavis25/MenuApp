@@ -15,7 +15,18 @@ class UpdateUsersTableAddAdminChangeNameColumns extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['name']);
-            $table->string('first_name');
+
+            // This is a hacky workaround to avoid SQLite oddities...I want phpunit tests to run in an SQLite in-memory
+            // database, however, the migrations throw exceptions for no default value on not null field or something
+            // and I'd like to keep DB integrity enforcing at least 1 name for an account
+            $connection_name = $driver = Schema::connection($this->getConnection())->getConnection()->getDriverName();
+            if ($connection_name === 'sqlite') {
+                $table->string('first_name')->nullable();
+            }
+            else {
+                $table->string('first_name');
+            }
+
             $table->string('last_name')->nullable();
             $table->boolean('is_admin')->default(false);
         });

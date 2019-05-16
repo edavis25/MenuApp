@@ -15,7 +15,7 @@ class Addon extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'price'
+        'name', 'price', 'addon_group_id'
     ];
 
     /**
