@@ -1,0 +1,31 @@
+.sidebar {
+  list-style-type: none;
+  padding-left: 0;
+  width: 100%;
+  background-color: $grey-medium;
+  min-height: 95vh;
+
+  &__heading, &__item {
+    padding: 15px;
+  }
+
+  &__heading {
+    background-color: $grey-dark;
+    color: $grey-lightest;
+    font-weight: 600;
+    font-size: 1.25em;
+  }
+  &__item {
+    background-color: $grey-light;
+    color: #fff;
+  }
+  &__link {
+    font-weight: 600;
+    color: #fff;
+
+    &:hover, &:active, &:focus {
+      color: $grey-lightest;
+      text-decoration: none;
+    }
+  }
+}
