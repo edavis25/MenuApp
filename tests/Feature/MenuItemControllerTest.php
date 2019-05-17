@@ -18,7 +18,9 @@ class MenuItemControllerTest extends TestCase
         $this->post(route('admin.menu-item.store', $menu_item));
         $this->assertDatabaseHas('menu_items', [
             'name' => $menu_item['name'],
-            'description' => $menu_item['description']
+            'description' => $menu_item['description'],
+            'price' => $menu_item['price'] * 100,
+            'category_id' => $menu_item['category_id']
         ]);
     }
 
@@ -97,5 +99,30 @@ class MenuItemControllerTest extends TestCase
         $this->assertDatabaseMissing('menu_items', [
             'id' => $menu_item->id
         ]);
+    }
+
+    /** @test */
+    public function a_user_can_visit_form_to_create_a_menu_item()
+    {
+        $response = $this->get(route('admin.menu-item.create'));
+        $response->assertSuccessful();
+    }
+
+    /** @test */
+    public function a_user_can_visit_form_to_edit_a_menu_item()
+    {
+        $menu_item = factory(MenuItem::class)->create();
+        $response = $this->get(route('admin.menu-item.edit', $menu_item->id));
+        $response->assertSuccessful();
+        $response->assertViewHas(['categories', 'menu_item']);
+    }
+
+    /** @test */
+    public function a_user_can_view_a_listing_of_menu_items()
+    {
+        factory(MenuItem::class, 5)->create();
+        $response = $this->get(route('admin.menu-item.index'));
+        $response->assertSuccessful();
+        $response->assertViewHas('menu_items');
     }
 }
