@@ -14,4 +14,13 @@ class Category extends Model
     protected $fillable = [
         'name', 'description'
     ];
+
+    /**
+     * Relationship: Has Many Menu Items
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function menuItems()
+    {
+        return $this->hasMany(MenuItem::class);
+    }
 }
